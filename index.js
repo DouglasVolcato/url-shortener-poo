@@ -3,7 +3,7 @@ import cors from "cors";
 import { config } from "dotenv";
 import { MongoDbConnection } from "./src/database/connection/connect.js";
 import { makeUrlFactory } from "./src/factories/urlFactory.js";
-import dns from "dns"
+// import dns from "dns"
 
 config();
 const ConnectDb = new MongoDbConnection();

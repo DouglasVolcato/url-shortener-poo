@@ -8,7 +8,8 @@ export class Url {
   }
 
   validate() {
-    if (url && url.includes(".")) {
+    if (url) {
+      console.log(url)
       console.log("Valid url");
     } else {
       throw new Error("Invalid url");
