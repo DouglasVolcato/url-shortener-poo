@@ -3,7 +3,7 @@ import cors from "cors";
 import { config } from "dotenv";
 import { MongoDbConnection } from "./src/database/connection/connect.js";
 import { makeUrlFactory } from "./src/factories/urlFactory.js";
-// import dns from "dns"
+import bodyParser from "body-parser";
 
 config();
 const ConnectDb = new MongoDbConnection();
@@ -15,6 +15,8 @@ const router = Router();
 const urlFactory = makeUrlFactory(router);
 
 app.use(express.json());
+app.use(cors());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 app.use("", urlFactory.route());
 

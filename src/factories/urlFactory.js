@@ -12,7 +12,6 @@ export function makeUrlFactory(router) {
 
   const urlController = new UrlController(createUrlUseCase, findUrlByIdUseCase);
 
-  // urlController.createUrlService
   const urlRoutes = new UrlRoutes(urlController, router);
 
   return urlRoutes;

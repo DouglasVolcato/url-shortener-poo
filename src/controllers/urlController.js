@@ -1,3 +1,6 @@
+import dns from "dns";
+import urlParser from "url";
+
 export class UrlController {
   constructor(createUrlService, findUrlByIdService) {
     this.createUrlService = createUrlService;
@@ -5,31 +8,22 @@ export class UrlController {
   }
 
   async createUrlController(req, res) {
-    const url = req.body.url;
-    const response = await this.createUrlService.execute(url);
-    res.send(response);
-
     const bodyUrl = req.body.url;
 
-    // const parsedUrl = dns.lookup(
-    //   urlParser.parse(bodyUrl).hostname,
-    //   (err, address) => {
-    //     if (!address) {
-    //       res.json({ error: "Invalid URL" });
-    //     } else {
-    //       const link = new Url({ url: bodyUrl });
+    dns.lookup(urlParser.parse(bodyUrl).hostname, async (err, address) => {
+      if (!address) {
+        res.send({ error: "Invalid URL" });
+      } else {
+        const link = await this.createUrlService.execute(bodyUrl);
 
-    //       link.save((err, data) => {
-    //         res.json({
-    //           original_url: data.url,
-    //           short_url:
-    //             "https://douglasvolcato-url-shortener.herokuapp.com/shorturl/" +
-    //             data.id,
-    //         });
-    //       });
-    //     }
-    //   }
-    // );
+        link.save((err, data) => {
+          res.send({
+            original_url: data.url,
+            short_url: data.id,
+          });
+        });
+      }
+    });
   }
 
   async findUrlByIdController(req, res) {
