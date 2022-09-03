@@ -1,5 +1,4 @@
-# URL Shortener Microservice
+# URL Shortener POO
 
-URL Shortener Microservice project.
-
-Link: https://douglasvolcato-url-shortener.herokuapp.com/
+Refactoration of this repository using POO:
+https://github.com/DouglasVolcato/url-shortener-microservice
